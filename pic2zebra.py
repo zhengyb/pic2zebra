@@ -163,7 +163,7 @@ class pic2zebra_cmd(object):
             self.tmp_path + pic_name[0] + "_" + str(x_rs) + "_" + str(y_rs) + '_Lmode.bmp')
         im_bin = self._binaryzation(im_lmode, threshold)
         im_bin.save(
-            self.tmp_path + pic_name[0] + "_" + str(x_rs) + "_" + str(y_rs) + "_bin" + '.bmp')
+            self.tmp_path + pic_name[0] + "_" + str(x_rs) + "_" + str(y_rs) + "_bin"+str(threshold) + '.bmp')
         # to zebra cmd
         (total_bytes, row_bytes) = self._get_zebra_byte_num(x_rs, y_rs)
         data = self._get_zebra_data(im_bin, x_rs, y_rs)
@@ -205,3 +205,5 @@ if __name__ == '__main__':
     tool.tran2zebra('0003', 100, False)
     tool.init('rohs.jpeg')
     tool.tran2zebra('0004', 100, False, 1, 190)
+    tool.init('girl.jpg')
+    tool.tran2zebra('0005', 300, False, 1, 127)
