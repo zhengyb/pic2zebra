@@ -12,7 +12,8 @@
 Please let us know if your name is missing!
 """
 import os
-import Image
+#pip install Pillow
+from PIL import Image
 import math
 
 
