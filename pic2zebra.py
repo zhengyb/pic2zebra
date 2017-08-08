@@ -24,6 +24,12 @@ class pic2zebra_cmd(object):
         self.cmd_path = './zebra_files/'
         self.pic = None
         self.image = None
+        if not os.path.exists(self.original_path):
+            os.mkdir(self.original_path)
+        if not os.path.exists(self.tmp_path):
+            os.mkdir(self.tmp_path)
+        if not os.path.exists(self.cmd_path):
+            os.mkdir(self.cmd_path)
 
     def init(self, pic):
         self.pic = pic
