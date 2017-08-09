@@ -104,9 +104,9 @@ class pic2zebra_cmd(object):
         print("(w0, h0, w/h) = (%d, %d, %f),", w0, h0, w_div_h)
         resize_x = int(math.ceil(resize_y * w_div_h))
         print('resize(w, h) = (%d, %d)', resize_x, resize_y)
-        #im_resize = image.resize((resize_x, resize_y), Image.ANTIALIAS)
+        im_resize = image.resize((resize_x, resize_y), Image.ANTIALIAS)
         #im_resize = image.resize((resize_x, resize_y), Image.NEAREST)
-        im_resize = image.resize((resize_x, resize_y), Image.BILINEAR)
+        #im_resize = image.resize((resize_x, resize_y), Image.BILINEAR)
         return (im_resize, resize_x, resize_y)
 
     def _get_zebra_byte_num(self, x, y):
@@ -124,7 +124,7 @@ class pic2zebra_cmd(object):
             for r in range(0, x):
                 #print("getpixel(%d, %d)\n", r, h1)
                 if image.getpixel((r, h1)) == 0:
-                    byte = byte | (0x01 << (r % 8))
+                    byte = byte | (0x01 << (7 - (r % 8)))
                     #byte = byte & ~(0x01 << (r % 8))
                 if (r % 8 == 7):
                     data.append(byte)
@@ -143,7 +143,7 @@ class pic2zebra_cmd(object):
                 print("%s" % ss)
                 ss = ""
             #ss += "%02X"%(data[i])
-            ss += self._intTo2Str(data[i], 8)[::-1]
+            ss += self._intTo2Str(data[i], 8)
         print("%s" % ss)
 
     def tran2zebra(self, cmdfile, xy, resize_x=True, show=1, threshold=127):
@@ -197,13 +197,19 @@ if __name__ == '__main__':
 
     tool.init('callback.bmp')
     #tool.tran2zebra('0001', 100)
+    #tool.tran2zebra('0001', 200)
     #tool.tran2zebra('0001', 64)
-    tool.tran2zebra('0001', 100, False)
+    tool.tran2zebra('0001', 120, False)
+    #tool.tran2zebra('0001', 360, False)
+    #tool.tran2zebra('0001', 180, False)
+    #tool.tran2zebra('0001', 540, False)
     tool.init('rohs.bmp')
-    tool.tran2zebra('0002', 100, False)
+    tool.tran2zebra('0002', 120, False)
     tool.init('lajitong.bmp')
-    tool.tran2zebra('0003', 100, False)
-    tool.init('rohs.jpeg')
-    tool.tran2zebra('0004', 100, False, 1, 190)
-    tool.init('girl.jpg')
-    tool.tran2zebra('0005', 300, False, 1, 127)
+    tool.tran2zebra('0003', 120, False)
+    tool.init('logo1.png')
+    tool.tran2zebra('0004', 120, False, 1, 190)
+    #tool.init('rohs.jpeg')
+    #tool.tran2zebra('0004', 100, False, 1, 190)
+    #tool.init('girl.jpg')
+    #tool.tran2zebra('0005', 300, False, 1, 127)
