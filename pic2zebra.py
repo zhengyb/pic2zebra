@@ -119,17 +119,17 @@ class pic2zebra_cmd(object):
         for h in range(0, y):
             #h1 = y-h-1
             h1 = h
-            #byte = 0x00
-            byte = 0xFF
+            byte = 0x00
+            #byte = 0xFF
             for r in range(0, x):
                 #print("getpixel(%d, %d)\n", r, h1)
-                # if image.getpixel((r, h1)) > 0:
                 if image.getpixel((r, h1)) == 0:
-                    byte = byte & ~(0x01 << (r % 8))
+                    byte = byte | (0x01 << (r % 8))
+                    #byte = byte & ~(0x01 << (r % 8))
                 if (r % 8 == 7):
                     data.append(byte)
-                    #byte = 0x00
-                    byte = 0xFF
+                    byte = 0x00
+                    #byte = 0xFF
             if (x % 8) != 0:
                 data.append(byte)
         return data
